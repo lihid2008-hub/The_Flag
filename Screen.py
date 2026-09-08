@@ -1,7 +1,7 @@
 import GameField
-import Soldier
 import pygame
 import consts
+import time
 
 screen = pygame.display.set_mode(
         (consts.WINDOW_WIDTH, consts.WINDOW_HEIGHT))
@@ -34,31 +34,67 @@ def draw_grass(grass):
 
 def night_field(game_state):
     screen.fill(consts.NIGHT_BACKGROUND_COLOR)
-    pygame.draw.rect(screen, consts.NIGHT_BACKGROUND_COLOR, (200, 150, 100, 50))
+    cell = consts.CELL_SIZE
+    draw_grid_rects()
+    draw_mine(game_state["soldier_location"])
+    draw_mine(game_state["mine"])
+    pygame.display.flip()
+    time.sleep(3)
 
-
-def draw_mine(location):
-    mine = pygame.image.load(consts.MINE_IMAGE_PATH)
+def draw_night_soldier(location):
+    soldier = pygame.image.load(consts.SOLDIER_NIGHT_IMAGE_PATH)
     x_position, y_position = GameField.get_location_on_field(location[0],
                                                              location[1])
-    screen.blit(mine, (x_position, y_position))
+    new_dimensions = (consts.SOLDIER_ROWS * consts.CELL_SIZE,
+                      consts.SOLDIER_COLS * consts.CELL_SIZE)
+    resize_image = pygame.transform.scale(soldier, new_dimensions)
+    screen.blit(resize_image, (x_position, y_position))
+
+def draw_grid_rects():
+    block_size = consts.CELL_SIZE
+    for x in range(0, consts.WINDOW_WIDTH, block_size):
+        for y in range(0, consts.WINDOW_HEIGHT, block_size):
+            rect = pygame.Rect(x, y, block_size, block_size)
+            # The '1' at the end specifies a line thickness of 1 pixel (hollow rect)
+            pygame.draw.rect(screen, consts.LINE_COLOR, rect, 1)
+
+def print_line(start, end):
+    pygame.draw.line(screen, consts.LINE_COLOR, start, end)
+
+def draw_flag(location):
+    flag = pygame.image.load(consts.FLAG_IMAGE_PATH)
+    x_position, y_position = GameField.get_location_on_field(location[0],
+                                                             location[1])
+    new_dimensions = (consts.SOLDIER_ROWS * consts.CELL_SIZE,
+                      consts.SOLDIER_COLS * consts.CELL_SIZE)
+    resize_image = pygame.transform.scale(flag, new_dimensions)
+    screen.blit(resize_image, (x_position, y_position))
+
+def draw_mine(mines):
+    print(mines)
+    for place in mines:
+        mine = pygame.image.load(consts.MINE_IMAGE_PATH)
+        x_position, y_position = GameField.get_location_on_field(place[0],
+                                                                 place[1])
+        screen.blit(mine, (x_position, y_position))
 
 def draw_lose_message():
     pass
-
 
 def draw_win_message():
     pass
 
 def darw_game(game_state):
+    if game_state["night_mode"]:
+        night_field(game_state)
+        game_state["night_mode"] = False
+
     screen.fill(consts.BACKGROUND_COLOR)
     draw_soldier(game_state["soldier_location"])
     draw_grass(game_state["grass"])
+    draw_flag(game_state["flag"][0])
 
-    if game_state["night_mode"]:
-        night_field(game_state)
-
-    elif game_state["state"] == consts.LOSE_STATE:
+    if game_state["state"] == consts.LOSE_STATE:
         draw_lose_message()
 
     elif game_state["state"] == consts.WIN_STATE:

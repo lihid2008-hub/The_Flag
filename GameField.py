@@ -52,6 +52,7 @@ def mine_laying():
             for b in range(col, col + consts.MINE_COLS):
                 game_field[k][b] = consts.MINE
                 mines.append([k, b])
+    print(mines)
     return mines
 
 def append_grass():
