@@ -29,7 +29,8 @@ def draw_grass(grass):
     for place in grass:
         x_position, y_position = GameField.get_location_on_field(place[0], place[1])
         screen.blit(resize_image, (x_position, y_position))
-    pygame.display.flip()
+
+    pygame.display.update()
 
 def night_field(game_state):
     screen.fill(consts.NIGHT_BACKGROUND_COLOR)
@@ -52,7 +53,7 @@ def draw_win_message():
 def darw_game(game_state):
     screen.fill(consts.BACKGROUND_COLOR)
     draw_soldier(game_state["soldier_location"])
-    # GameField.append_grass()
+    draw_grass(game_state["grass"])
 
     if game_state["night_mode"]:
         night_field(game_state)

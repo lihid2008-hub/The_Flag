@@ -7,12 +7,15 @@ state = {
     "soldier_location": consts.START_LOCATION,
     "state": consts.RUNNING_STATE,
     "is_running": True,
-    "night_mode": False
+    "night_mode": False,
+    "grass": []
 }
 
 def main():
     pygame.init()
     GameField.create_game_field()
+    grass = GameField.append_grass()
+    state["grass"] = grass
     while state["is_running"]:
         handel_user_event()
         Screen.darw_game(state)

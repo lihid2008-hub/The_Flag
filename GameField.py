@@ -13,6 +13,7 @@ def create_game_field():
     add_flag()
     mine_laying()
 
+
 def add_solider():
     for i in range(consts.SOLDIER_ROWS):
         for j in range(consts.SOLDIER_COLS):
@@ -52,14 +53,14 @@ def mine_laying():
 def append_grass():
     grass = []
     for i in range(consts.BUSHES_COUNT):
-        row = random.randint(0, consts.BOARD_ROWS - 1)
-        col = random.randint(0, consts.BOARD_COLS - 1)
+        row = random.randint(0, consts.BOARD_ROWS - consts.BUSH_ROWS - 1)
+        col = random.randint(0, consts.BOARD_COLS - consts.BUSH_COLS - 1)
 
         while not no_grass((row, col), grass):
             row = random.randint(0, consts.BOARD_ROWS - 1)
             col = random.randint(0, consts.BOARD_COLS - 1)
-        grass.append((row, col))
-        Screen.draw_grass((row, col))
+        grass.append([row, col])
+    return grass
 
 def no_grass(place, bushes):
     if soldier_there(place) or flag_there(place):
@@ -74,14 +75,14 @@ def no_grass(place, bushes):
 def soldier_there(place):
     for i in range(place[0], place[0] + consts.SOLDIER_ROWS):
         for j in range(place[1], place[1] + consts.SOLDIER_COLS):
-            if game_field[i][j] == "player":
+            if i >= consts.BOARD_ROWS or j >= consts.BOARD_COLS or game_field[i][j] == "player":
                 return False
     return True
 
 def flag_there(place):
     for i in range(place[0], place[0] + consts.BOARD_ROWS):
         for j in range(place[1], place[1] + consts.BOARD_COLS):
-            if game_field[i][j] == "flag":
+            if i >= consts.BOARD_ROWS or j >= consts.BOARD_COLS or game_field[i][j] == "flag":
                 return False
     return True
 
