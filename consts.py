@@ -91,3 +91,14 @@ WIN_LOCATION = \
     (0.2 * WINDOW_WIDTH, WINDOW_HEIGHT / 2 - (WIN_FONT_SIZE / 2))
 
 DEFULT_FIELD = {"grass": False, "mine": False}
+
+EXPLOTION_IMAGE_PATH = 'images/explotion.png'
+FLAG_IMAGE_PATH = 'images/flag.png'
+GRASS_IMAGE_PATH = 'images/grass.png'
+GUARD_IMAGE_PATH = 'images/guard.png'
+INJURY_IMAGE_PATH = 'images/injury.png'
+MINE_IMAGE_PATH = 'images/mine.png'
+SNAKE_IMAGE_PATH = 'images/snake.png'
+SOLDIER_IMAGE_PATH = 'images/soldier.png'
+SOLDIER_NIGHT_IMAGE_PATH = 'images/soldier_night.png'
+TELEPORT_IMAGE_PATH = 'images/teleport.png'
