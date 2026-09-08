@@ -12,7 +12,7 @@ state = {
 
 def main():
     pygame.init()
-    GameField.create_field()
+    GameField.create_game_field()
     while state["is_running"]:
         handel_user_event()
         Screen.darw_game(state)

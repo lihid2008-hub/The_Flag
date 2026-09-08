@@ -27,8 +27,7 @@ def draw_grass(grass):
                       consts.BUSH_COLS * consts.CELL_SIZE)
     resize_image = pygame.transform.scale(grass_pic, new_dimensions)
     for place in grass:
-        x_position, y_position = GameField.get_location_on_field(place[0],
-                                                                 place[1])
+        x_position, y_position = GameField.get_location_on_field(place[0], place[1])
         screen.blit(resize_image, (x_position, y_position))
     pygame.display.flip()
 
