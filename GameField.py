@@ -4,13 +4,13 @@ import random
 game_field = []
 
 
-def create_game_field():
+def create_game_field(state):
     global game_field
     game_field= [[consts.FREE for _ in range(consts.BOARD_COLS)] for _ in
                   range(consts.BOARD_ROWS)]
     add_solider()
-    add_flag()
-    mine_laying()
+    state["flag"] = add_flag()
+    state["mine"] = mine_laying()
 
 def add_solider():
     for i in range(consts.SOLDIER_ROWS):
@@ -18,9 +18,12 @@ def add_solider():
             game_field[i][j] = consts.PLAYER
 
 def add_flag():
+    flag = []
     for i in range(consts.BOARD_ROWS-consts.FLAG_ROWS,consts.BOARD_ROWS):
         for j in range(consts.BOARD_COLS-consts.FLAG_COLS,consts.BOARD_COLS):
             game_field[i][j] = consts.FLAG
+            flag.append([i, j])
+    return flag
 
 def print_field():
     for row in game_field:
@@ -34,6 +37,7 @@ def is_free(row, col):
     return True
 
 def mine_laying():
+    mines = []
     max_row = consts.BOARD_ROWS - consts.MINE_ROWS
     max_col = consts.BOARD_COLS - consts.MINE_COLS
 
@@ -46,7 +50,9 @@ def mine_laying():
 
         for k in range(row, row + consts.MINE_ROWS):
             for b in range(col, col + consts.MINE_COLS):
-               game_field[k][b] = consts.MINE
+                game_field[k][b] = consts.MINE
+                mines.append([k, b])
+    return mines
 
 def append_grass():
     grass = []

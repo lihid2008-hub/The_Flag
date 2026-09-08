@@ -8,12 +8,14 @@ state = {
     "state": consts.RUNNING_STATE,
     "is_running": True,
     "night_mode": False,
-    "grass": []
+    "grass": [],
+    "mine": [],
+    "flag": []
 }
 
 def main():
     pygame.init()
-    GameField.create_game_field()
+    GameField.create_game_field(state)
     grass = GameField.append_grass()
     state["grass"] = grass
     while state["is_running"]:
