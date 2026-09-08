@@ -49,6 +49,11 @@ TELEPORT_IMAGE_PATH = 'images/teleport.png'
 RUNNING_STATE = 1
 LOSE_STATE = 2
 WIN_STATE = 3
+FREE="free"
+BUSH="bush"
+MINE="mine"
+PLAYER="player"
+FLAG="flag"
 
 TEXT_FONT_SIZE = 10
 START_TEXT = "Welcome to The Flag game.\nHave Fun!"
