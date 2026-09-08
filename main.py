@@ -1,26 +1,46 @@
-
-
-import consts
+import pygame
 import GameField
-# This is a sample Python script.
+import Screen
+import consts
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+state = {
+    "soldier_location": consts.START_LOCATION,
+    "state": consts.RUNNING_STATE,
+    "is_running": True,
+    "night_mode": False
+}
+
+def main():
+    pygame.init()
+    GameField.create_field()
+    while state["is_running"]:
+        handel_user_event()
+        Screen.darw_game(state)
+
+def handel_user_event():
+    for event in pygame.event.get():
+
+        if event.type == pygame.QUIT:
+            state["is_window_open"] = False
+
+        elif state["state"] != consts.RUNNING_STATE:
+            continue
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP:
+                state["soldier_location"] = (5,5)
+            elif event.key == pygame.K_DOWN:
+                state["soldier_location"] = (2,5)
+
+            elif event.key == pygame.K_LEFT:
+                state["soldier_location"] = (0,5)
+
+            elif event.key == pygame.K_RIGHT:
+                state["soldier_location"] = (5,0)
+
+            elif event.key == pygame.K_SPACE:
+                state["night_mode"] = True
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
-
-GameField.create_game_field()
-GameField.print_field()
-
-
+    main()
