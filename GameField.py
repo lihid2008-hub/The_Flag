@@ -1,6 +1,5 @@
 import consts
 import random
-import Screen
 
 game_field = []
 
@@ -12,7 +11,6 @@ def create_game_field():
     add_solider()
     add_flag()
     mine_laying()
-
 
 def add_solider():
     for i in range(consts.SOLDIER_ROWS):
