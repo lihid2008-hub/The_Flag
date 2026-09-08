@@ -14,7 +14,6 @@ SOLDIER_FEET_ROWS = 1 # the lower part
 
 
 FLAG_COLS = 4
-# GameField.py
 flag_row = BOARD_ROWS - FLAG_ROWS
 flag_col = BOARD_COLS - FLAG_COLS
 
