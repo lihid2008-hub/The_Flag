@@ -17,6 +17,7 @@ def main():
         handel_user_event()
         Screen.darw_game(state)
 
+
 def handel_user_event():
     for event in pygame.event.get():
 
@@ -28,15 +29,15 @@ def handel_user_event():
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
-                state["soldier_location"] = (5,5)
+                state["soldier_location"] = [5,5]
             elif event.key == pygame.K_DOWN:
-                state["soldier_location"] = (2,5)
+                state["soldier_location"] = [2,5]
 
             elif event.key == pygame.K_LEFT:
-                state["soldier_location"] = (0,5)
+                state["soldier_location"] = [0,5]
 
             elif event.key == pygame.K_RIGHT:
-                state["soldier_location"] = (5,0)
+                state["soldier_location"] = [5,0]
 
             elif event.key == pygame.K_SPACE:
                 state["night_mode"] = True

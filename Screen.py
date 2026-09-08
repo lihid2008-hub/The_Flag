@@ -8,7 +8,7 @@ screen = pygame.display.set_mode(
 
 def draw_soldier(location):
     soldier = pygame.image.load(consts.SOLDIER_IMAGE_PATH)
-    x_position, y_position = GameField.get_location_on_field()
+    x_position, y_position = GameField.get_location_on_field(location[0], location[1])
     new_dimensions = (consts.SOLDIER_ROWS * consts.CELL_SIZE, consts.SOLDIER_COLS * consts.CELL_SIZE)
     resize_image = pygame.transform.scale(soldier, new_dimensions)
     screen.blit(resize_image, (x_position, y_position))
@@ -21,14 +21,16 @@ def draw_message(message, font_size, color, location):
     text_img = font.render(message, True, color)
     screen.blit(text_img, location)
 
-def draw_grass(location):
-    grass = pygame.image.load(consts.GRASS_IMAGE_PATH)
+def draw_grass(grass):
+    grass_pic = pygame.image.load(consts.GRASS_IMAGE_PATH)
     new_dimensions = (consts.BUSH_ROWS * consts.CELL_SIZE,
                       consts.BUSH_COLS * consts.CELL_SIZE)
-    resize_image = pygame.transform.scale(grass, new_dimensions)
-    x_position, y_position = GameField.get_location_on_field(location[0],
-                                                             location[1])
-    screen.blit(resize_image, (x_position, y_position))
+    resize_image = pygame.transform.scale(grass_pic, new_dimensions)
+    for place in grass:
+        x_position, y_position = GameField.get_location_on_field(place[0],
+                                                                 place[1])
+        screen.blit(resize_image, (x_position, y_position))
+    pygame.display.flip()
 
 def night_field(game_state):
     screen.fill(consts.NIGHT_BACKGROUND_COLOR)
@@ -51,10 +53,10 @@ def draw_win_message():
 def darw_game(game_state):
     screen.fill(consts.BACKGROUND_COLOR)
     draw_soldier(game_state["soldier_location"])
-    GameField.append_grass()
+    # GameField.append_grass()
 
     if game_state["night_mode"]:
-        night_field()
+        night_field(game_state)
 
     elif game_state["state"] == consts.LOSE_STATE:
         draw_lose_message()
