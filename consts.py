@@ -25,3 +25,14 @@ MINE_COLS = 3
 BUSHES_COUNT = 20
 BUSH_ROWS = 1
 BUSH_COLS = 3
+
+EXPLOTION_IMAGE_PATH = 'images/explotion.png'
+FLAG_IMAGE_PATH = 'images/flag.png'
+GRASS_IMAGE_PATH = 'images/grass.png'
+GUARD_IMAGE_PATH = 'images/guard.png'
+INJURY_IMAGE_PATH = 'images/injury.png'
+MINE_IMAGE_PATH = 'images/mine.png'
+SNAKE_IMAGE_PATH = 'images/snake.png'
+SOLDIER_IMAGE_PATH = 'images/soldier.png'
+SOLDIER_NIGHT_IMAGE_PATH = 'images/soldier_night.png'
+TELEPORT_IMAGE_PATH = 'images/teleport.png'
