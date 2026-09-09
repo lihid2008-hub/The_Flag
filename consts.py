@@ -104,6 +104,8 @@ LOSE_SOUND = "sound/boom.mp3"
 WIN_SOUND = "sound/win.mp3"
 #endregion
 
+PRESS_SECONDS = 1
+
 FREE="free"
 BUSH="bush"
 MINE="mine"
