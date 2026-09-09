@@ -11,6 +11,7 @@ state = {
     "grass": [],
     "mine": [],
     "flag": [],
+    "pits": [],
     "exploding": None
 }
 
@@ -25,8 +26,11 @@ def main():
         #getting soldier locations:
         legs_solider_location = Soldier.get_soldier_legs(GameField.game_field)
         body_soldier_location = Soldier.get_soldier_body(GameField.game_field)
-
         lose, mine_place = is_lose(legs_solider_location)
+        on,location=on_teleport(legs_solider_location)
+        if on:
+            state["soldier_location"] = location
+            print(location)
 
         if lose:
             state["state"] = consts.LOSE_STATE
@@ -82,6 +86,20 @@ def is_lose(legs_solider_location):
             if leg in mine:
                 return True, mine
     return False, None
+
+def on_teleport(legs_solider_location):
+    for location in legs_solider_location:
+        if location in state["pits"]:
+            print(location)
+            for pit in state["pits"]:
+                if pit!=location:
+                    GameField.update_soldier_position(state["soldier_location"],
+                                              pit)
+                    return True, pit
+    return False, None
+
+
+
 
 def music_lose():
     pygame.mixer.music.load(consts.LOSE_SOUND)
