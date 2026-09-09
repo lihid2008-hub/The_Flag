@@ -59,7 +59,7 @@ def handel_user_event():
             elif event.key == pygame.K_RIGHT and col + consts.SOLDIER_COLS < consts.BOARD_COLS - 1:
                 new_col = col + 1
             elif event.key==pygame.K_RETURN:
-                state["night_mode"] = not state["night_mode"]
+                state["night_mode"] = True
                 return
 
             new_location = [new_row, new_col]

@@ -32,14 +32,13 @@ def draw_grass(grass):
         x_position, y_position = GameField.get_location_on_field(place[0], place[1])
         screen.blit(resize_image, (x_position, y_position))
 
-    pygame.display.update()
+    pygame.display.flip()
 
 def night_field(game_state):
     screen.fill(consts.NIGHT_BACKGROUND_COLOR)
     draw_grid_rects()
     draw_night_soldier(game_state["soldier_location"])
     draw_mine(game_state["mine"])
-    draw_flag(game_state["flag"][0])
     pygame.display.flip()
     time.sleep(1)
 
@@ -91,23 +90,22 @@ def draw_win_message():
     pygame.display.flip()
     time.sleep(3)
 
-
 def darw_game(game_state):
+    screen.fill(consts.BACKGROUND_COLOR)
+    draw_soldier(game_state["soldier_location"])
+    draw_flag(game_state["flag"][0])
+    draw_grass(game_state["grass"])
+
+
+
     if game_state["night_mode"]:
         night_field(game_state)
         game_state["night_mode"] = False
 
-    screen.fill(consts.BACKGROUND_COLOR)
-    draw_soldier(game_state["soldier_location"])
-    draw_grass(game_state["grass"])
-    draw_flag(game_state["flag"][0])
-
     if game_state["state"] == consts.LOSE_STATE:
         draw_lose_message()
 
-
     elif game_state["state"] == consts.WIN_STATE:
         draw_win_message()
-
     else:
         pygame.display.flip()
