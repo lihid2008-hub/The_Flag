@@ -82,7 +82,7 @@ def draw_injury_soldier(location):
     screen.blit(resize_image, (x_position, y_position))
 
 def draw_explode_mine(place):
-    explode_pic = pygame.image.load(consts.EXPLOTION_IMAGE_PATH)
+    explode_pic = pygame.image.load(consts.EXPLOSION_IMAGE_PATH)
 
     # Adjusts the image size to the desired ratio.
     new_dimensions = (consts.BUSH_COLS * consts.CELL_SIZE,

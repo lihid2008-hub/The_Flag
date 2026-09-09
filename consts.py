@@ -1,29 +1,47 @@
+#region--------BOARD INFORMATION
 BOARD_ROWS = 25
 BOARD_COLS = 50
-CELL_SIZE = 20 # pixels per cell
-FLAG_ROWS = 3
-FLAG_COLS = 4
 
-START_LOCATION = [0,0]
+CELL_SIZE = 20 # pixels per cell
 
 WINDOW_WIDTH = BOARD_COLS * CELL_SIZE
 WINDOW_HEIGHT = BOARD_ROWS * CELL_SIZE
+#endregion
 
+#region------FLAG INFORMATION------
+FLAG_ROWS = 3
+FLAG_COLS = 4
+
+flag_row = BOARD_ROWS - FLAG_ROWS
+flag_col = BOARD_COLS - FLAG_COLS
+#endregion
+
+#region -------SOLDIER INFORMATION--------
 SOLDIER_ROWS = 4
 SOLDIER_COLS = 2
 SOLDIER_BODY_ROWS = 3 # the upper part
 SOLDIER_FEET_ROWS = 1 # the lower part
 
-flag_row = BOARD_ROWS - FLAG_ROWS
-flag_col = BOARD_COLS - FLAG_COLS
+START_LOCATION = [0,0]
+#endregion
 
+#region ------MINES INFORMATION------
 MINES_COUNT = 20
 MINE_ROWS = 1
 MINE_COLS = 3
+#endregion
 
+#region ------BUSH INFORMATION-----
 BUSHES_COUNT = 20
 BUSH_ROWS = 1
 BUSH_COLS = 3
+#endregion
+
+#region-------PIT INFORMATION--------
+PIT_ROW = 1
+PIT_COL = 3
+PIT_COUNT = 2
+#endregion
 
 #region -------colors--------
 WHITE = (255, 255, 255)
@@ -35,9 +53,8 @@ NIGHT_BACKGROUND_COLOR = BLACK
 LINE_COLOR =  GREEN
 #endregion
 
-
 #region--------images--------
-EXPLOTION_IMAGE_PATH = 'images/explotion.png'
+EXPLOSION_IMAGE_PATH = 'images/explotion.png'
 FLAG_IMAGE_PATH = 'images/flag.png'
 GRASS_IMAGE_PATH = 'images/grass.png'
 GUARD_IMAGE_PATH = 'images/guard.png'
@@ -49,10 +66,13 @@ SOLDIER_NIGHT_IMAGE_PATH = 'images/soldier_night.png'
 TELEPORT_IMAGE_PATH = 'images/teleport.png'
 #endregion
 
+#region -------STATES-------
 RUNNING_STATE = 1
 LOSE_STATE = 2
 WIN_STATE = 3
+#endregion
 
+#region-------TEXT--------
 TEXT_FONT_SIZE = 10
 START_TEXT = "Welcome to The Flag game.\nHave Fun!"
 START_TEXT_COLOR = WHITE
@@ -68,25 +88,24 @@ WIN_COLOR = (89, 89, 89)
 WIN_LOCATION = \
     (0.2 * WINDOW_WIDTH, WINDOW_HEIGHT / 2 - (WIN_FONT_SIZE / 2))
 
-FREE="free"
-BUSH="bush"
-MINE="mine"
-PLAYER="player"
-FLAG="flag"
-
 LOSE_FONT_SIZE = int(0.15 * WINDOW_WIDTH)
 
 WIN_FONT_SIZE = LOSE_FONT_SIZE
+#endregion
 
+#region------TIMES------
 SHOW_NIGHT_TIME = 1
 SHOW_LOSE_TIME = 3
 SOW_WIN_TIME = SHOW_NIGHT_TIME
-
-PIT_ROW = 1
-PIT_COL = 3
-PIT_COUNT = 2
+#endregion
 
 #region ---sound----
 LOSE_SOUND = "sound/boom.mp3"
 WIN_SOUND = "sound/win.mp3"
 #endregion
+
+FREE="free"
+BUSH="bush"
+MINE="mine"
+PLAYER="player"
+FLAG="flag"
