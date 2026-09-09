@@ -49,14 +49,33 @@ def mine_laying():
             if is_free(row, col):
                 break
 
-        mine_loactions = []
+        mine_locations = []
         for k in range(row, row + consts.MINE_ROWS):
             for b in range(col, col + consts.MINE_COLS):
                 game_field[k][b] = consts.MINE
-                mine_loactions.append([k, b])
-        mines.append(mine_loactions)
+                mine_locations.append([k, b])
+        mines.append(mine_locations)
     return mines
+def add_pit():
 
+    pits = []
+    max_row = consts.BOARD_ROWS - consts.PIT_ROW
+    max_col = consts.BOARD_COLS - consts.PIT_COL
+
+    for i in range(consts.PIT_COUNT):
+        while True:
+            row = random.randint(0, max_row)
+            col = random.randint(0, max_col)
+            if is_free(row, col):
+                break
+
+        pits_locations = []
+        for k in range(row, row + consts.PIT_ROW):
+            for b in range(col, col + consts.PIT_COL):
+                game_field[k][b] = consts.PIT_COUNT
+                pits_locations.append([k, b])
+        pits.append(pits_locations)
+    return pits
 #Adds bushes at 20 random locations.
 def append_grass():
     grass = []
