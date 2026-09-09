@@ -3,6 +3,7 @@ import GameField
 import Screen
 import Soldier
 import consts
+import random
 
 state = {
     "soldier_location": consts.START_LOCATION,
@@ -20,6 +21,8 @@ def main():
     GameField.create_game_field(state)
     grass = GameField.append_grass()
     state["grass"] = grass
+    num = random.randint(0, consts.MINE_ROWS - 1)
+    print(num)
     while state["state"] == consts.RUNNING_STATE:
 
         handel_user_event()
@@ -55,7 +58,7 @@ def handel_user_event():
                 new_col = col - 1
             elif event.key == pygame.K_RIGHT and col + consts.SOLDIER_COLS < consts.BOARD_COLS - 1:
                 new_col = col + 1
-            elif event.key == pygame.K_SPACE:
+            elif event.key==pygame.K_RETURN:
                 state["night_mode"] = not state["night_mode"]
                 return
 

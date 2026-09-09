@@ -38,7 +38,7 @@ def night_field(game_state):
     draw_night_soldier(game_state["soldier_location"])
     draw_mine(game_state["mine"])
     pygame.display.flip()
-    time.sleep(3)
+    time.sleep(1)
 
 def draw_night_soldier(location):
     soldier = pygame.image.load(consts.SOLDIER_NIGHT_IMAGE_PATH)

@@ -49,19 +49,24 @@ def mine_laying():
             for b in range(col, col + consts.MINE_COLS):
                 game_field[k][b] = consts.MINE
                 mines.append([k, b])
-    print(mines)
     return mines
 
 def append_grass():
     grass = []
-    for i in range(consts.BUSHES_COUNT):
-        row = random.randint(0, consts.BOARD_ROWS - consts.BUSH_ROWS - 1)
-        col = random.randint(0, consts.BOARD_COLS - consts.BUSH_COLS - 1)
+    max_row = consts.BOARD_ROWS - consts.BUSH_ROWS
+    max_col = consts.BOARD_COLS - consts.BUSH_COLS
 
-        while not no_grass((row, col), grass):
-            row = random.randint(0, consts.BOARD_ROWS - 1)
-            col = random.randint(0, consts.BOARD_COLS - 1)
-        grass.append([row, col])
+    for i in range(consts.BUSHES_COUNT):
+        while True:
+            row = random.randint(0, max_row)
+            col = random.randint(0, max_col)
+            if is_free(row, col):
+                break
+
+        for k in range(row, row + consts.BUSH_ROWS):
+            for b in range(col, col + consts.BUSH_COLS):
+                game_field[k][b] = consts.MINE
+                grass.append([k, b])
     return grass
 
 def no_grass(place, bushes):
