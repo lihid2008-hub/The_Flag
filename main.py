@@ -13,29 +13,9 @@ state = {
     "grass": [],
     "mine": [],
     "flag": [],
-    "exploding": None,
-    "start_press": 0,
-    "stop_press": 0,
-    "handel_press": {"49": {"save": DataBase.save_in_one,
-                           "upload": DataBase.draw_one},
-                     "50": {"save": DataBase.save_in_two,
-                           "uploud": DataBase.draw_two},
-                     "51": {"save": DataBase.save_in_three,
-                           "uploud": DataBase.draw_three},
-                     "52": {"save": DataBase.save_in_four,
-                           "uploud": DataBase.draw_four},
-                     "53": {"save": DataBase.save_in_five,
-                           "uploud": DataBase.draw_five},
-                     "54": {"save": DataBase.save_in_six,
-                           "uploud": DataBase.draw_six},
-                     "55": {"save": DataBase.save_in_seven,
-                           "uploud": DataBase.draw_seven},
-                     "56": {"save": DataBase.save_in_eight,
-                           "uploud": DataBase.draw_eight},
-                     "57": {"save": DataBase.save_in_nine,
-                           "uploud": DataBase.draw_nine}
-                     }
+    "exploding": None
 }
+
 
 def main():
     pygame.init()
@@ -45,11 +25,15 @@ def main():
     while state["state"] == consts.RUNNING_STATE:
         handel_user_event()
 
-        # getting soldier locations:
+        #getting soldier locations:
         legs_solider_location = Soldier.get_soldier_legs(GameField.game_field)
         body_soldier_location = Soldier.get_soldier_body(GameField.game_field)
 
         lose, mine_place = is_lose(legs_solider_location)
+        on,location=on_teleport(legs_solider_location)
+        if on:
+            state["soldier_location"] = location
+            print(location)
 
         if lose:
             state["state"] = consts.LOSE_STATE
@@ -61,7 +45,6 @@ def main():
             music_win()
 
         Screen.darw_game(state)
-
 
 def handel_user_event():
     for event in pygame.event.get():
@@ -107,7 +90,6 @@ def is_win(body_solider_location):
             return True
     return False
 
-
 def is_lose(legs_solider_location):
     for leg in legs_solider_location:
         for mine in state["mine"]:
@@ -115,11 +97,23 @@ def is_lose(legs_solider_location):
                 return True, mine
     return False, None
 
+def on_teleport(legs_solider_location):
+    for location in legs_solider_location:
+        if location in state["pits"]:
+            print(location)
+            for pit in state["pits"]:
+                if pit!=location:
+                    GameField.update_soldier_position(state["soldier_location"],
+                                              pit)
+                    return True, pit
+    return False, None
+
+
+
 
 def music_lose():
     pygame.mixer.music.load(consts.LOSE_SOUND)
     pygame.mixer.music.play(loops=0, start=0.8, fade_ms=100)
-
 
 def music_win():
     pygame.mixer.music.load(consts.WIN_SOUND)

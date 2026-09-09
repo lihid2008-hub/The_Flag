@@ -32,6 +32,18 @@ def draw_grass(grass):
         x_position, y_position = GameField.get_location_on_field(place[0], place[1])
         screen.blit(resize_image, (x_position, y_position))
 
+def draw_pits(pits):
+    pits_pic = pygame.image.load(consts.TELEPORT_IMAGE_PATH)
+
+    #Adjusts the image size to the desired ratio.
+    new_dimensions = (consts.PIT_COL * consts.CELL_SIZE,
+                      consts.PIT_COUNT * consts.CELL_SIZE)
+
+    resize_image = pygame.transform.scale(pits_pic, new_dimensions)
+    for place in pits[::consts.PIT_COL]:
+        x_position, y_position = GameField.get_location_on_field(place[0], place[1])
+        screen.blit(resize_image, (x_position, y_position))
+
 def draw_night_soldier(location):
     soldier = pygame.image.load(consts.SOLDIER_NIGHT_IMAGE_PATH)
 
@@ -134,6 +146,8 @@ def darw_game(game_state):
     screen.fill(consts.BACKGROUND_COLOR)
     draw_flag(game_state["flag"][0])
     draw_grass(game_state["grass"])
+    draw_pits(game_state["pits"][0])
+    draw_pits(game_state["pits"][1])
 
     if game_state["state"] == consts.LOSE_STATE:
         draw_injury_soldier(game_state["soldier_location"])

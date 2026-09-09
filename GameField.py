@@ -12,6 +12,7 @@ def create_game_field(state):
     state["flag"] = add_flag()
     state["grass"] = append_grass()
     state["mine"] = mine_laying()
+    state["pits"]=add_pit()
 
 #A function that adds a soldier
 def add_solider():
