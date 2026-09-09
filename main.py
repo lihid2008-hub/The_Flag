@@ -1,8 +1,10 @@
+import time
 import pygame
 import GameField
 import Screen
 import Soldier
 import consts
+import DataBase
 
 state = {
     "soldier_location": consts.START_LOCATION,
@@ -11,7 +13,6 @@ state = {
     "grass": [],
     "mine": [],
     "flag": [],
-    "pits": [],
     "exploding": None
 }
 
@@ -19,6 +20,7 @@ state = {
 def main():
     pygame.init()
     GameField.create_game_field(state)
+    DataBase.open_new_file()
 
     while state["state"] == consts.RUNNING_STATE:
         handel_user_event()
@@ -26,6 +28,7 @@ def main():
         #getting soldier locations:
         legs_solider_location = Soldier.get_soldier_legs(GameField.game_field)
         body_soldier_location = Soldier.get_soldier_body(GameField.game_field)
+
         lose, mine_place = is_lose(legs_solider_location)
         on,location=on_teleport(legs_solider_location)
         if on:
@@ -52,6 +55,7 @@ def handel_user_event():
             continue
 
         if event.type == pygame.KEYDOWN:
+            state["start_press"] = time.time()
             old_location = list(state["soldier_location"])
             row, col = state["soldier_location"]
             new_row, new_col = row, col
@@ -73,6 +77,12 @@ def handel_user_event():
             if new_location != old_location:
                 state["soldier_location"] = new_location
                 GameField.update_soldier_position(old_location, new_location)
+
+        keys = [int(key) for key in state["handel_press"].keys()]
+        if event.type == pygame.KEYUP and event.key in keys:
+            state["stop_press"] = time.time()
+            handel_database(event.key)
+
 
 def is_win(body_solider_location):
     for i in range(len(body_solider_location)):
@@ -108,6 +118,13 @@ def music_lose():
 def music_win():
     pygame.mixer.music.load(consts.WIN_SOUND)
     pygame.mixer.music.play(loops=0, start=0.8, fade_ms=100)
+
+
+def handel_database(k):
+    if state["stop_press"] - state["start_press"] < consts.PRESS_SECONDS:
+        state["handel_press"][str(k)]["save"](state)
+    else:
+        state["handel_press"][str(k)]["upload"](state)
 
 
 if __name__ == '__main__':
