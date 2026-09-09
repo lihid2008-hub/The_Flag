@@ -49,11 +49,14 @@ def mine_laying():
             if is_free(row, col):
                 break
 
+        mine_loactions = []
         for k in range(row, row + consts.MINE_ROWS):
             for b in range(col, col + consts.MINE_COLS):
                 game_field[k][b] = consts.MINE
-                mines.append([k, b])
+                mine_loactions.append([k, b])
+        mines.append(mine_loactions)
     return mines
+
 #Adds bushes at 20 random locations.
 def append_grass():
     grass = []
@@ -121,3 +124,5 @@ def update_soldier_position(old_location, new_location):
         for j in range(new_col, new_col + consts.SOLDIER_COLS):
             if 0 <= i < consts.BOARD_ROWS and 0 <= j < consts.BOARD_COLS:
                 game_field[i][j] = consts.PLAYER
+
+

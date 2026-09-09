@@ -3,18 +3,15 @@ import GameField
 import Screen
 import Soldier
 import consts
-import random
-from os import environ
-environ['PYGAME_HIDE_SUPPORT_PROMPT']='1'
-MUSIC_LIST=["win.mp3","boom.mp3"]
-pygame.mixer.init()
+
 state = {
     "soldier_location": consts.START_LOCATION,
     "state": consts.RUNNING_STATE,
     "night_mode": False,
     "grass": [],
     "mine": [],
-    "flag": []
+    "flag": [],
+    "exploding": None
 }
 
 
@@ -23,16 +20,18 @@ def main():
     GameField.create_game_field(state)
 
     while state["state"] == consts.RUNNING_STATE:
-
         handel_user_event()
 
         #getting soldier locations:
         legs_solider_location = Soldier.get_soldier_legs(GameField.game_field)
         body_soldier_location = Soldier.get_soldier_body(GameField.game_field)
 
-        if is_lose(legs_solider_location):
+        lose, mine_place = is_lose(legs_solider_location)
+
+        if lose:
             state["state"] = consts.LOSE_STATE
             music_lose()
+            state["exploding"] = mine_place[0]
 
         if is_win(body_soldier_location):
             state["state"] = consts.WIN_STATE
@@ -80,17 +79,18 @@ def is_win(body_solider_location):
 
 
 def is_lose(legs_solider_location):
-    for i in range(len(legs_solider_location)):
-        if legs_solider_location[i] in state["mine"]:
-            return True
-    return False
+    for leg in legs_solider_location:
+        for mine in state["mine"]:
+            if leg in mine:
+                return True, mine
+    return False, None
+
 def music_lose():
-    song = "bye.mp3"
-    pygame.mixer.music.load(song)
+    pygame.mixer.music.load(consts.LOSE_SOUND)
     pygame.mixer.music.play(loops=0, start=0.8, fade_ms=100)
+
 def music_win():
-    song = "win.mp3"
-    pygame.mixer.music.load(song)
+    pygame.mixer.music.load(consts.WIN_SOUND)
     pygame.mixer.music.play(loops=0, start=0.8, fade_ms=100)
 
 

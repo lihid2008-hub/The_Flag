@@ -25,7 +25,7 @@ BUSHES_COUNT = 20
 BUSH_ROWS = 1
 BUSH_COLS = 3
 
-#colors
+#region -------colors--------
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (102,187,106)
@@ -33,7 +33,10 @@ GREEN = (102,187,106)
 BACKGROUND_COLOR = GREEN
 NIGHT_BACKGROUND_COLOR = BLACK
 LINE_COLOR =  GREEN
+#endregion
 
+
+#region--------images--------
 EXPLOTION_IMAGE_PATH = 'images/explotion.png'
 FLAG_IMAGE_PATH = 'images/flag.png'
 GRASS_IMAGE_PATH = 'images/grass.png'
@@ -44,6 +47,7 @@ SNAKE_IMAGE_PATH = 'images/snake.png'
 SOLDIER_IMAGE_PATH = 'images/soldier.png'
 SOLDIER_NIGHT_IMAGE_PATH = 'images/soldier_night.png'
 TELEPORT_IMAGE_PATH = 'images/teleport.png'
+#endregion
 
 RUNNING_STATE = 1
 LOSE_STATE = 2
@@ -77,3 +81,8 @@ WIN_FONT_SIZE = LOSE_FONT_SIZE
 SHOW_NIGHT_TIME = 1
 SHOW_LOSE_TIME = 3
 SOW_WIN_TIME = SHOW_NIGHT_TIME
+
+#region ---sound----
+LOSE_SOUND = "sound/boom.mp3"
+WIN_SOUND = "sound/win.mp3"
+#endregion
