@@ -3,7 +3,6 @@ import GameField
 import Screen
 import Soldier
 import consts
-import random
 
 state = {
     "soldier_location": consts.START_LOCATION,
@@ -20,7 +19,6 @@ def main():
     GameField.create_game_field(state)
 
     while state["state"] == consts.RUNNING_STATE:
-
         handel_user_event()
 
         #getting soldier locations:
