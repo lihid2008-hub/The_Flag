@@ -4,7 +4,10 @@ import Screen
 import Soldier
 import consts
 import random
-
+from os import environ
+environ['PYGAME_HIDE_SUPPORT_PROMPT']='1'
+MUSIC_LIST=["win.mp3","boom.mp3"]
+pygame.mixer.init()
 state = {
     "soldier_location": consts.START_LOCATION,
     "state": consts.RUNNING_STATE,
@@ -29,9 +32,11 @@ def main():
 
         if is_lose(legs_solider_location):
             state["state"] = consts.LOSE_STATE
+            music_lose()
 
         if is_win(body_soldier_location):
             state["state"] = consts.WIN_STATE
+            music_win()
 
         Screen.darw_game(state)
 
@@ -79,6 +84,14 @@ def is_lose(legs_solider_location):
         if legs_solider_location[i] in state["mine"]:
             return True
     return False
+def music_lose():
+    song = "bye.mp3"
+    pygame.mixer.music.load(song)
+    pygame.mixer.music.play(loops=0, start=0.8, fade_ms=100)
+def music_win():
+    song = "win.mp3"
+    pygame.mixer.music.load(song)
+    pygame.mixer.music.play(loops=0, start=0.8, fade_ms=100)
 
 
 if __name__ == '__main__':
