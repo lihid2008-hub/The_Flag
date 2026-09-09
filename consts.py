@@ -82,6 +82,10 @@ SHOW_NIGHT_TIME = 1
 SHOW_LOSE_TIME = 3
 SOW_WIN_TIME = SHOW_NIGHT_TIME
 
+PIT_ROW = 1
+PIT_COL = 3
+PIT_COUNT = 2
+
 #region ---sound----
 LOSE_SOUND = "sound/boom.mp3"
 WIN_SOUND = "sound/win.mp3"

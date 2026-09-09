@@ -58,7 +58,7 @@ def handel_user_event():
 
             elif event.key == pygame.K_UP and row > 0:
                 new_row = row - 1
-            elif event.key == pygame.K_DOWN and row + consts.SOLDIER_ROWS <= consts.BOARD_ROWS:
+            elif event.key == pygame.K_DOWN and row + consts.SOLDIER_ROWS < consts.BOARD_ROWS:
                 new_row = row + 1
             elif event.key == pygame.K_LEFT and col > 0:
                 new_col = col - 1
@@ -70,13 +70,11 @@ def handel_user_event():
                 state["soldier_location"] = new_location
                 GameField.update_soldier_position(old_location, new_location)
 
-
 def is_win(body_solider_location):
     for i in range(len(body_solider_location)):
         if body_solider_location[i] in state["flag"]:
             return True
     return False
-
 
 def is_lose(legs_solider_location):
     for leg in legs_solider_location:
