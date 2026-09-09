@@ -1,5 +1,6 @@
 import consts
 
+#A function that returns a matrix containing the locations of the soldier's body parts
 def get_soldier_body(field):
     body= []
     count = consts.SOLDIER_BODY_ROWS * consts.SOLDIER_COLS
@@ -10,7 +11,7 @@ def get_soldier_body(field):
             elif field[row][col] == "player":
                 body.append([row, col])
     return body
-
+#A function that returns a matrix containing the locations of the soldier's leg parts.
 def get_soldier_legs(field):
     legs = []
     count = consts.SOLDIER_FEET_ROWS * consts.SOLDIER_COLS
@@ -21,3 +22,9 @@ def get_soldier_legs(field):
             elif field[row][col] == "player":
                 legs.append([row, col])
     return legs
+
+
+
+
+
+

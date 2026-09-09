@@ -3,7 +3,7 @@ import random
 
 game_field = []
 
-
+#A function that generates the field matrix
 def create_game_field(state):
     global game_field
     game_field= [[consts.FREE for _ in range(consts.BOARD_COLS)] for _ in
@@ -12,11 +12,13 @@ def create_game_field(state):
     state["flag"] = add_flag()
     state["mine"] = mine_laying()
 
+#A function that adds a soldier
 def add_solider():
     for i in range(consts.SOLDIER_ROWS):
         for j in range(consts.SOLDIER_COLS):
             game_field[i][j] = consts.PLAYER
 
+#A function that adds a flag
 def add_flag():
     flag = []
     for i in range(consts.BOARD_ROWS-consts.FLAG_ROWS,consts.BOARD_ROWS):
@@ -25,7 +27,7 @@ def add_flag():
             flag.append([i, j])
     return flag
 
-
+#Function that checks if a location is empty
 def is_free(row, col):
     for i in range(row, row + consts.MINE_ROWS):
         for j in range(col, col + consts.MINE_COLS):
@@ -33,6 +35,7 @@ def is_free(row, col):
                 return False
     return True
 
+#A function that adds 20 bombs to the field at random locations.
 def mine_laying():
     mines = []
     max_row = consts.BOARD_ROWS - consts.MINE_ROWS
@@ -50,7 +53,7 @@ def mine_laying():
                 game_field[k][b] = consts.MINE
                 mines.append([k, b])
     return mines
-
+#Adds bushes at 20 random locations.
 def append_grass():
     grass = []
     max_row = consts.BOARD_ROWS - consts.BUSH_ROWS

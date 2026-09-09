@@ -67,7 +67,6 @@ def handel_user_event():
                 state["soldier_location"] = new_location
                 GameField.update_soldier_position(old_location, new_location)
 
-
 def is_win(body_solider_location):
     for i in range(len(body_solider_location)):
         if body_solider_location[i] in state["flag"]:
