@@ -10,6 +10,7 @@ def create_game_field(state):
                   range(consts.BOARD_ROWS)]
     add_solider()
     state["flag"] = add_flag()
+    state["grass"] = append_grass()
     state["mine"] = mine_laying()
 
 #A function that adds a soldier
