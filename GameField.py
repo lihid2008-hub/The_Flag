@@ -72,6 +72,7 @@ def append_grass():
                 grass.append([k, b])
     return grass
 
+#A function that checks if there is no longer a conversation there
 def no_grass(place, bushes):
     if soldier_there(place) or flag_there(place):
         return False
@@ -82,6 +83,7 @@ def no_grass(place, bushes):
                 return False
     return True
 
+#A function that checks if there is a piece at a location.
 def soldier_there(place):
     for i in range(place[0], place[0] + consts.SOLDIER_ROWS):
         for j in range(place[1], place[1] + consts.SOLDIER_COLS):
@@ -89,6 +91,7 @@ def soldier_there(place):
                 return False
     return True
 
+#A function that checks if there is a flag at a location.
 def flag_there(place):
     for i in range(place[0], place[0] + consts.BOARD_ROWS):
         for j in range(place[1], place[1] + consts.BOARD_COLS):
@@ -96,12 +99,13 @@ def flag_there(place):
                 return False
     return True
 
+#A function that returns a position in pixels.
 def get_location_on_field(row, col):
     center_y = consts.CELL_SIZE * row
     center_x = consts.CELL_SIZE * col
     return center_x, center_y
 
-
+#Updates the soldier's location
 def update_soldier_position(old_location, new_location):
     global game_field
     old_row, old_col = old_location
