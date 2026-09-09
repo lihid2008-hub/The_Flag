@@ -20,17 +20,19 @@ def main():
     GameField.create_game_field(state)
     grass = GameField.append_grass()
     state["grass"] = grass
-    while state["state"]==consts.RUNNING_STATE:
+    while state["state"] == consts.RUNNING_STATE:
+
         handel_user_event()
-        Screen.darw_game(state)
-        legs_solider_location=Soldier.get_soldier_legs(GameField.game_field)
+        legs_solider_location = Soldier.get_soldier_legs(GameField.game_field)
+        body_soldier_location = Soldier.get_soldier_body(GameField.game_field)
+
         if is_lose(legs_solider_location):
             state["state"] = consts.LOSE_STATE
-        body_soldier_location = Soldier.get_soldier_body(GameField.game_field)
+
         if is_win(body_soldier_location):
             state["state"] = consts.WIN_STATE
 
-
+        Screen.darw_game(state)
 
 def handel_user_event():
     global row, col

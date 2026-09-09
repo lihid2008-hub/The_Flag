@@ -34,9 +34,8 @@ def draw_grass(grass):
 
 def night_field(game_state):
     screen.fill(consts.NIGHT_BACKGROUND_COLOR)
-    cell = consts.CELL_SIZE
     draw_grid_rects()
-    draw_mine(game_state["soldier_location"])
+    draw_night_soldier(game_state["soldier_location"])
     draw_mine(game_state["mine"])
     pygame.display.flip()
     time.sleep(3)
@@ -58,9 +57,6 @@ def draw_grid_rects():
             # The '1' at the end specifies a line thickness of 1 pixel (hollow rect)
             pygame.draw.rect(screen, consts.LINE_COLOR, rect, 1)
 
-def print_line(start, end):
-    pygame.draw.line(screen, consts.LINE_COLOR, start, end)
-
 def draw_flag(location):
     flag = pygame.image.load(consts.FLAG_IMAGE_PATH)
     x_position, y_position = GameField.get_location_on_field(location[0],
@@ -71,18 +67,27 @@ def draw_flag(location):
     screen.blit(resize_image, (x_position, y_position))
 
 def draw_mine(mines):
-    print(mines)
+    mine_pic = pygame.image.load(consts.MINE_IMAGE_PATH)
+    new_dimensions = (consts.BUSH_ROWS * consts.CELL_SIZE,
+                      consts.BUSH_COLS * consts.CELL_SIZE)
+    resize_image = pygame.transform.scale(mine_pic, new_dimensions)
     for place in mines:
-        mine = pygame.image.load(consts.MINE_IMAGE_PATH)
         x_position, y_position = GameField.get_location_on_field(place[0],
                                                                  place[1])
-        screen.blit(mine, (x_position, y_position))
+        screen.blit(resize_image, (x_position, y_position))
 
 def draw_lose_message():
-    pass
+    draw_message(consts.LOSE_MESSAGE, consts.LOSE_FONT_SIZE,
+                 consts.LOSE_COLOR, consts.LOSE_LOCATION)
+    pygame.display.flip()
+    time.sleep(3)
 
 def draw_win_message():
-    pass
+    draw_message(consts.WIN_MESSAGE, consts.WIN_FONT_SIZE,
+                 consts.WIN_COLOR, consts.WIN_LOCATION)
+    pygame.display.flip()
+    time.sleep(3)
+
 
 def darw_game(game_state):
     if game_state["night_mode"]:
@@ -97,7 +102,9 @@ def darw_game(game_state):
     if game_state["state"] == consts.LOSE_STATE:
         draw_lose_message()
 
+
     elif game_state["state"] == consts.WIN_STATE:
         draw_win_message()
 
-    pygame.display.flip()
+    else:
+        pygame.display.flip()

@@ -25,9 +25,6 @@ def add_flag():
             flag.append([i, j])
     return flag
 
-def print_field():
-    for row in game_field:
-        print(row)
 
 def is_free(row, col):
     for i in range(row, row + consts.MINE_ROWS):
