@@ -1,6 +1,7 @@
 import pygame
 import GameField
 import Screen
+import Soldier
 import consts
 
 state = {
@@ -19,15 +20,21 @@ def main():
     GameField.create_game_field(state)
     grass = GameField.append_grass()
     state["grass"] = grass
-    while state["is_running"]:
+    while state["state"]==consts.RUNNING_STATE:
         handel_user_event()
         Screen.darw_game(state)
+        legs_solider_location=Soldier.get_soldier_legs(GameField.game_field)
+        if is_lose(legs_solider_location):
+            state["state"] = consts.LOSE_STATE
+        body_soldier_location = Soldier.get_soldier_body(GameField.game_field)
+        if is_win(body_soldier_location):
+            state["state"] = consts.WIN_STATE
+
 
 
 def handel_user_event():
     global row, col
     for event in pygame.event.get():
-
         if event.type == pygame.QUIT:
             state["is_window_open"] = False
 
@@ -35,23 +42,25 @@ def handel_user_event():
             continue
 
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP:
-                row = state["soldier_location"][0]
-                col = state["soldier_location"][1]
-                if state["soldier_location"][0] > 0:
-                    state["soldier_location"] = [row - 1, col]
-            #elif event.key == pygame.K_DOWN:
-                #if state["soldier_location"][0] < 25:
-                   # state["soldier_location"] = [row + 1, col]
-
-            elif event.key == pygame.K_LEFT:
-                state["soldier_location"] = [0, 5]
-
-            elif event.key == pygame.K_RIGHT:
-                state["soldier_location"] = [5, 0]
-
+            old_location = list(state["soldier_location"])
+            row, col = state["soldier_location"]
+            new_row, new_col = row, col
+            if event.key == pygame.K_UP and row > 0:
+                new_row = row - 1
+            elif event.key == pygame.K_DOWN and row + consts.SOLDIER_ROWS <= consts.BOARD_ROWS:
+                new_row = row + 1
+            elif event.key == pygame.K_LEFT and col > 0:
+                new_col = col - 1
+            elif event.key == pygame.K_RIGHT and col + consts.SOLDIER_COLS < consts.BOARD_COLS - 1:
+                new_col = col + 1
             elif event.key == pygame.K_SPACE:
-                state["night_mode"] = True
+                state["night_mode"] = not state["night_mode"]
+                return
+
+            new_location = [new_row, new_col]
+            if new_location != old_location:
+                state["soldier_location"] = new_location
+                GameField.update_soldier_position(old_location, new_location)
 
 
 def is_win(body_solider_location):

@@ -95,3 +95,19 @@ def get_location_on_field(row, col):
     center_y = consts.CELL_SIZE * row
     center_x = consts.CELL_SIZE * col
     return center_x, center_y
+
+
+def update_soldier_position(old_location, new_location):
+    global game_field
+    old_row, old_col = old_location
+    for i in range(old_row, old_row + consts.SOLDIER_ROWS):
+        for j in range(old_col, old_col + consts.SOLDIER_COLS):
+            if 0 <= i < consts.BOARD_ROWS and 0 <= j < consts.BOARD_COLS:
+                if game_field[i][j] == consts.PLAYER:
+                    game_field[i][j] = consts.FREE
+
+    new_row, new_col = new_location
+    for i in range(new_row, new_row + consts.SOLDIER_ROWS):
+        for j in range(new_col, new_col + consts.SOLDIER_COLS):
+            if 0 <= i < consts.BOARD_ROWS and 0 <= j < consts.BOARD_COLS:
+                game_field[i][j] = consts.PLAYER

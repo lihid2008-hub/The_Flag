@@ -1,6 +1,6 @@
 import consts
 
-def get_soldier_parts(field):
+def get_soldier_body(field):
     body= []
     count = consts.SOLDIER_BODY_ROWS * consts.SOLDIER_COLS
     for row in range(consts.BOARD_ROWS):
